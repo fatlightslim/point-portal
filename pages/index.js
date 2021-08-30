@@ -1,82 +1,121 @@
-import Head from 'next/head'
+import { useForm } from "react-hook-form"
+import axios from "axios"
+import { useState } from "react"
+import PointPage from "../components/PointPage"
 
-export default function Home() {
+export default function Index() {
+  const [customer, setCustomer] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  const onSubmit = (data) => {
+    setLoading(true)
+    axios.post(`/api/customers/${data.code}`).then((r) => {
+      setCustomer(r.data)
+      setLoading(false)
+    })
+  }
+
+  const locals = {
+    onSubmit,
+    customer,
+    loading
+  }
+
+  return customer ? <PointPage {...locals} /> : <Home {...locals} />
+}
+
+function Home({ onSubmit, customer, loading }) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {loading && (
+        <div className=" absolute left-1/2">
+          <svg
+            className="animate-spin -ml-1 mr-3 h-5 w-5 text-black inline-block "
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
           >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+            <circle
+              className="opacity-25"
+              cx={12}
+              cy={12}
+              r={10}
+              stroke="currentColor"
+              strokeWidth={4}
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
         </div>
-      </main>
+      )}
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <p className="text-center text-3xl font-bold">
+          <img
+            className="mx-auto h-9 w-auto inline-block mr-1"
+            src="/morinaga.png"
+            alt="morinaga"
+          />
+          森永ミルクセンター
+        </p>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          ミルモポイント確認サイト
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600"></p>
+        <p className="text-center font-medium text-indigo-600 hover:text-indigo-500">
+          お客様コードを入力してください
+        </p>
+      </div>
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                お客様コード
+              </label>
+              <div className="mt-1">
+                <input
+                  id="code"
+                  name="code"
+                  type="text"
+                  {...register("code", { required: true })}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                {errors.code && (
+                  <span className="text-red-500 text-sm">入力してください</span>
+                )}
+                {customer === "" && (
+                  <p className="text-red-500 text-sm mt-2">
+                    該当する顧客コードがありません
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                送信
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   )
 }
