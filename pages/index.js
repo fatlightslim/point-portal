@@ -1,121 +1,93 @@
-import { useForm } from "react-hook-form"
-import axios from "axios"
-import { useState } from "react"
-import PointPage from "../components/PointPage"
+import Link from "next/link"
+import { DatabaseIcon } from "@heroicons/react/outline"
+
+const supportLinks = [
+  {
+    name: "読売センター ゆりのき高津",
+    href: "/form?type=yc",
+    img: "/yc_logo.jpg",
+    description: "よみ得ポイント",
+    icon: DatabaseIcon,
+  },
+  {
+    name: "森永ミルクセンター八千代",
+    href: "/form",
+    img: "/morinaga.png",
+    description: "ミルモポイント",
+    icon: DatabaseIcon,
+  },
+  {
+    name: "森永ミルクセンター船橋",
+    href: "/form",
+    img: "/morinaga.png",
+    description: "ミルモポイント",
+    icon: DatabaseIcon,
+  },
+]
 
 export default function Index() {
-  const [customer, setCustomer] = useState(null)
-  const [loading, setLoading] = useState(false)
-
-  const onSubmit = (data) => {
-    setLoading(true)
-    axios.post(`/api/customers/${data.code}`).then((r) => {
-      setCustomer(r.data)
-      setLoading(false)
-    })
-  }
-
-  const locals = {
-    onSubmit,
-    customer,
-    loading
-  }
-
-  return customer ? <PointPage {...locals} /> : <Home {...locals} />
-}
-
-function Home({ onSubmit, customer, loading }) {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm()
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      {loading && (
-        <div className=" absolute left-1/2">
-          <svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-black inline-block "
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx={12}
-              cy={12}
-              r={10}
-              stroke="currentColor"
-              strokeWidth={4}
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-        </div>
-      )}
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <p className="text-center text-3xl font-bold">
-          <img
-            className="mx-auto h-9 w-auto inline-block mr-1"
-            src="/morinaga.png"
-            alt="morinaga"
+    <div className="bg-white text-center">
+      {/* Header */}
+
+      <div className="relative pb-32 bg-gray-800">
+        <div className="absolute inset-0">
+          <img className="w-full h-full object-cover" src="/YC.jpg" alt="" />
+          <div
+            className="absolute inset-0 bg-yellow-600 mix-blend-multiply"
+            aria-hidden="true"
           />
-          森永ミルクセンター
-        </p>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          ミルモポイント確認サイト
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600"></p>
-        <p className="text-center font-medium text-indigo-600 hover:text-indigo-500">
-          お客様コードを入力してください
-        </p>
+        </div>
+        <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+            YCSポイントポータル
+          </h1>
+          <p className="mt-6 max-w-3xl text-xl text-gray-300 mx-auto">
+            毎月のお支払いでたまるお得なポイントをご確認いただけます。
+          </p>
+        </div>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                お客様コード
-              </label>
-              <div className="mt-1">
-                <input
-                  id="code"
-                  name="code"
-                  type="text"
-                  {...register("code", { required: true })}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-                {errors.code && (
-                  <span className="text-red-500 text-sm">入力してください</span>
-                )}
-                {customer === "" && (
-                  <p className="text-red-500 text-sm mt-2">
-                    該当する顧客コードがありません
-                  </p>
-                )}
+      {/* Overlapping cards */}
+      <section
+        className="-mt-32 max-w-7xl mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8"
+        aria-labelledby="contact-heading"
+      >
+        <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
+          {supportLinks.map((link) => (
+            <div
+              key={link.name}
+              className="flex flex-col bg-white rounded-2xl shadow-xl"
+            >
+              <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8 ">
+                <div className="-ml-8 absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
+                  <link.icon
+                    className="h-6 w-6 text-white"
+                    aria-hidden="true"
+                  />
+                </div>
+                <h3 className="text-xl font-medium text-gray-900">
+                  {link.name}
+                </h3>
+                {/* <p className="mt-4 text-base text-gray-500">{link.description}</p> */}
+                <div className="pt-4">
+                  <img src={link.img} className="h-8 inline-block" />
+                  <span className="text-2xl ml-2">{link.description}</span>
+                </div>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
+                <Link href={link.href}>
+                <a
+                  className="text-base font-medium text-indigo-700 hover:text-indigo-600"
+                >
+                  確認する<span aria-hidden="true"> &rarr;</span>
+                </a>
+                </Link>
               </div>
             </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                送信
-              </button>
-            </div>
-          </form>
+          ))}
         </div>
-      </div>
+      </section>
     </div>
   )
 }
