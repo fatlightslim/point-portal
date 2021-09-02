@@ -1,3 +1,4 @@
+import Footer from "../components/Footer"
 import Link from "next/link"
 const bokashi = {
   color: "transparent",
@@ -49,6 +50,7 @@ export default function PointPage2({ customer, yc }) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

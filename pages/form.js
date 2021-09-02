@@ -4,6 +4,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import PointPage from "../components/PointPage2"
 import { useRouter } from "next/router"
+import Footer from "../components/Footer"
 
 export default function Form() {
   const [customer, setCustomer] = useState(null)
@@ -132,6 +133,7 @@ function Home({ onSubmit, customer, loading, yc }) {
           </a>
         </Link>
       </div>
+      <Footer />
     </div>
   )
 }
