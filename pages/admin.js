@@ -1,18 +1,30 @@
-import { Fragment, useState } from "react"
+import { useUser } from "@auth0/nextjs-auth0"
+import { Fragment, useEffect, useState } from "react"
+import { useRouter } from "next/router"
 import { Dialog, Transition } from "@headlessui/react"
 import { CheckIcon } from "@heroicons/react/outline"
 import axios from "axios"
 import CSVReader from "react-csv-reader"
 import Link from "next/link"
+import { route } from "next/dist/next-server/server/router"
 
 export default function Admin() {
   const [dept, setDept] = useState("-")
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [csv, setCsv] = useState([])
+  const router = useRouter()
+  const { user, error, isLoading } = useUser()
+
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
 
   function csvUpload() {
+    setLoading(true)
     axios.post("/api/upload", csv).then((res) => {
       setOpen(true)
+      setLoading(false)
     })
   }
 
@@ -39,38 +51,67 @@ export default function Admin() {
     setCsv(result)
   }
 
-  return (
-    <div className="bg-white">
-      <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mt-8">
-          <span className="block">ヘッダー入りのCSVファイルを</span>
-          <span className="block">アップロードしてください</span>
-        </h2>
-        <div className="mt-8 w-full inline-flex items-center justify-center">
-          <Select setDept={setDept} />
-        </div>
-        {dept !== "-" && <Upload csvParse={csvParse} />}
-        {csv.length > 0 && (
-          <div className="py-4">
-            <button
-              type="button"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={(e) => csvUpload()}
-            >
-              アップロード
-            </button>
-          </div>
-        )}
+  if (user) {
+    return (
+      <div className="bg-white">
 
-        <Modal setOpen={setOpen} open={open} dept={dept} />
-        <Link href="/">
-          <a className="block mt-8 text-center text-blue-500 underline">
-            ホームへ戻る
-          </a>
-        </Link>
+        <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mt-8">
+            <span className="block">ヘッダー入りのCSVファイルを</span>
+            <span className="block">アップロードしてください</span>
+          </h2>
+          <div className="mt-8 w-full inline-flex items-center justify-center">
+            <Select setDept={setDept} />
+          </div>
+          {dept !== "-" && <Upload csvParse={csvParse} />}
+          {csv.length > 0 && (
+            <div className="py-4">
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={(e) => csvUpload()}
+              >
+
+      {loading && (
+        <div className="mr-2 -ml-2">
+          <svg
+            className="animate-spin   h-5 w-5 text-white inline-block "
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx={12}
+              cy={12}
+              r={10}
+              stroke="currentColor"
+              strokeWidth={4}
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+        </div>
+      )}
+                アップロード
+              </button>
+            </div>
+          )}
+
+          <Modal setOpen={setOpen} open={open} dept={dept} />
+          <Link href="/">
+            <a className="block mt-8 text-center text-blue-500 underline">
+              ホームへ戻る
+            </a>
+          </Link>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+  return (window.location.href = `/api/auth/login?returnTo=${router.asPath}`)
 }
 
 function Select({ setDept }) {

@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { DatabaseIcon } from "@heroicons/react/outline"
+import Footer from "../components/Footer"
 
 const supportLinks = [
   {
@@ -88,6 +89,7 @@ export default function Index() {
           ))}
         </div>
       </section>
+      <Footer />
     </div>
   )
 }
