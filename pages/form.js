@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { useForm } from "react-hook-form"
 import axios from "axios"
 import { useEffect, useState } from "react"
@@ -125,6 +126,11 @@ function Home({ onSubmit, customer, loading, yc }) {
             </div>
           </form>
         </div>
+        <Link href="/">
+          <a className="block mt-8 text-center text-blue-500 underline">
+            ホームへ戻る
+          </a>
+        </Link>
       </div>
     </div>
   )

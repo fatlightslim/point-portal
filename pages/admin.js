@@ -42,9 +42,9 @@ export default function Admin() {
   return (
     <div className="bg-white">
       <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          <span className="block">Ready to dive in?</span>
-          <span className="block">Start your free trial today.</span>
+        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mt-8">
+          <span className="block">ヘッダー入りのCSVファイルを</span>
+          <span className="block">アップロードしてください</span>
         </h2>
         <div className="mt-8 w-full inline-flex items-center justify-center">
           <Select setDept={setDept} />
@@ -55,7 +55,7 @@ export default function Admin() {
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={e => csvUpload()}
+              onClick={(e) => csvUpload()}
             >
               アップロード
             </button>
@@ -63,10 +63,11 @@ export default function Admin() {
         )}
 
         <Modal setOpen={setOpen} open={open} dept={dept} />
-      <Link href="/">
-        <a className="block mt-8 text-center text-blue-500 underline">ホームへ戻る</a>
-
-      </Link>
+        <Link href="/">
+          <a className="block mt-8 text-center text-blue-500 underline">
+            ホームへ戻る
+          </a>
+        </Link>
       </div>
     </div>
   )
