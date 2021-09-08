@@ -43,14 +43,18 @@ export default function PointPage2({ customer, yc }) {
               />
             </div>
 
-      <Link href="/">
-        <a className="block mt-8 text-center text-blue-500 underline">ホームへ戻る</a>
-
-      </Link>
+            <Link href="/">
+              <a className="block mt-8 text-center text-blue-500 underline">
+                ホームへ戻る
+              </a>
+            </Link>
           </div>
         </div>
       </div>
+      <div className="bg-white text-center mx-auto">
+
       <Footer />
+      </div>
     </div>
   )
 }
