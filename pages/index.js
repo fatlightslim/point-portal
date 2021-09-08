@@ -12,14 +12,14 @@ const supportLinks = [
   },
   {
     name: "森永ミルクセンター八千代",
-    href: "/form",
+    href: "/form?type=yachiyo",
     img: "/morinaga.png",
     description: "ミルモポイント",
     icon: DatabaseIcon,
   },
   {
     name: "森永ミルクセンター船橋",
-    href: "/form",
+    href: "/form?type=funabashi",
     img: "/morinaga.png",
     description: "ミルモポイント",
     icon: DatabaseIcon,
