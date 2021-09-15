@@ -19,6 +19,7 @@ export default function Form() {
   }, [])
 
   const onSubmit = (data) => {
+    // console.log(data);
     setLoading(true)
     axios.post(`/api/customers/${data.code}`, router.query).then((r) => {
       setCustomer(r.data)
