@@ -41,7 +41,7 @@ export default function Admin() {
           }
         : {
             dept: v["店舗名"],
-            code: v["顧客コード"],
+            code: parseInt(v["顧客コード"]).toString(), //v["顧客コード"],
             name: v["顧客名"],
             add1: v["住所1"],
             add2: v["住所2"],
