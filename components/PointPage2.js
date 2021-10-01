@@ -1,10 +1,9 @@
 import Footer from "../components/Footer"
 import Link from "next/link"
-const bokashi = {
-  color: "transparent",
-  textShadow: "0px 0px 8px #000",
-}
-
+// const bokashi = {
+//   color: "transparent",
+//   textShadow: "0px 0px 8px #000",
+// }
 export default function PointPage2({ customer, yc }) {
   return (
     <div className="bg-gray-50 pt-12 sm:pt-16">
