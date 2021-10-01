@@ -12,7 +12,8 @@ export default function PointPage2({ customer, yc }) {
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-2xl font-extrabold text-gray-900 py-8">
             {customer.name.split("　")[0]}&nbsp;
-            <span style={bokashi}>{customer.name.split("　")[1]}</span>様
+            <span>{customer.name.split("　")[1]}</span>様
+            {/* <span style={bokashi}>{customer.name.split("　")[1]}</span>様 */}
           </h3>
           <p className="mt-3 text-xl text-gray-500 sm:mt-4">
             お客様の現在の保有ポイントです。
@@ -52,8 +53,7 @@ export default function PointPage2({ customer, yc }) {
         </div>
       </div>
       <div className="bg-white text-center mx-auto">
-
-      <Footer />
+        <Footer />
       </div>
     </div>
   )
