@@ -129,6 +129,7 @@ function Home({ onSubmit, customer, loading, yc }) {
                 className="block text-sm font-medium text-gray-700"
               >
                 お名前
+                <span className="text-xs ml-1">苗字(姓)</span>
               </label>
               <div className="mt-1">
                 <input
