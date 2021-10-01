@@ -19,7 +19,8 @@ export default async function handler(req, res) {
         if (!r) {
           res.json("")
         } else if (
-          req.body.name.replace(/\s/g, "") === r.name.replace(/\s/g, "")
+          req.body.name.replace(/\s/g, "") ===
+          r.name.substring(0, r.name.search(/\s/))
         ) {
           res.json(r)
         } else {
