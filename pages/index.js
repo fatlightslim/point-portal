@@ -2,6 +2,22 @@ import Link from "next/link"
 import { DatabaseIcon } from "@heroicons/react/outline"
 import Footer from "../components/Footer"
 
+const togane = [
+  {
+    name: "読売センター 東金中央",
+    href: "/form?type=yc",
+    img: "/yc_logo.jpg",
+    description: "よみ得ポイント",
+    icon: DatabaseIcon,
+  },
+  {
+    name: "読売センター 東金東部",
+    href: "/form?type=yc",
+    img: "/yc_logo.jpg",
+    description: "よみ得ポイント",
+    icon: DatabaseIcon,
+  },
+]
 const supportLinks = [
   {
     name: "読売センター ゆりのき高津",
@@ -78,11 +94,41 @@ export default function Index() {
               </div>
               <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
                 <Link href={link.href}>
-                <a
-                  className="text-base font-medium text-indigo-700 hover:text-indigo-600"
-                >
-                  確認する<span aria-hidden="true"> &rarr;</span>
-                </a>
+                  <a className="text-base font-medium text-indigo-700 hover:text-indigo-600">
+                    確認する<span aria-hidden="true"> &rarr;</span>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8 mt-16">
+          {togane.map((link) => (
+            <div
+              key={link.name}
+              className="flex flex-col bg-white rounded-2xl shadow-xl"
+            >
+              <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8 ">
+                <div className="-ml-8 absolute top-0 p-5 inline-block bg-indigo-600 rounded-xl shadow-lg transform -translate-y-1/2">
+                  <link.icon
+                    className="h-6 w-6 text-white"
+                    aria-hidden="true"
+                  />
+                </div>
+                <h3 className="text-xl font-medium text-gray-900">
+                  {link.name}
+                </h3>
+                {/* <p className="mt-4 text-base text-gray-500">{link.description}</p> */}
+                <div className="pt-4">
+                  <img src={link.img} className="h-8 inline-block" />
+                  <span className="text-2xl ml-2">{link.description}</span>
+                </div>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
+                <Link href={link.href}>
+                  <a className="text-base font-medium text-indigo-700 hover:text-indigo-600">
+                    確認する<span aria-hidden="true"> &rarr;</span>
+                  </a>
                 </Link>
               </div>
             </div>
