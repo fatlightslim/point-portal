@@ -4,12 +4,16 @@ export default async function handler(req, res) {
   const { db } = await connectToDatabase()
   try {
     let dept
-    if (req.body.type === "yc") {
+    if (req.body.type === "takatsu") {
       dept = "YCゆりのき高津"
     } else if (req.body.type === "funabashi") {
       dept = "森永ミルクセンター船橋"
     } else if (req.body.type === "yachiyo") {
       dept = "森永ミルクセンター八千代"
+    } else if (req.body.type === "chuo") {
+      dept = "YC東金中央"
+    } else if (req.body.type === "tobu") {
+      dept = "YC東金東部"
     }
 
     db.collection("customers").findOne(

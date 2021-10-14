@@ -6,7 +6,12 @@ import { CheckIcon } from "@heroicons/react/outline"
 import axios from "axios"
 import CSVReader from "react-csv-reader"
 import Link from "next/link"
-import { route } from "next/dist/next-server/server/router"
+
+const clientId = {
+  "C8D9D207436A": "YCゆりのき高津",
+  "1860248ADB3A": "YC東金東部",
+  "E0D55E58DA97": "YC東金中央",
+}
 
 export default function Admin() {
   const [dept, setDept] = useState("-")
@@ -15,7 +20,6 @@ export default function Admin() {
   const [csv, setCsv] = useState([])
   const router = useRouter()
   const { user, error, isLoading } = useUser()
-
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
@@ -32,7 +36,7 @@ export default function Admin() {
     const result = data.map((v) => {
       return v["クライアントID"]
         ? {
-            dept: "YCゆりのき高津",
+            dept: clientId[v["クライアントID"]],
             code: v["購読者番号"],
             name: v["氏名"],
             add1: v["都道府県・市区名"] + v["住所(町名)"] + v["住所(丁番号)"],
@@ -54,7 +58,6 @@ export default function Admin() {
   if (user) {
     return (
       <div className="bg-white">
-
         <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl mt-8">
             <span className="block">ヘッダー入りのCSVファイルを</span>
@@ -71,31 +74,30 @@ export default function Admin() {
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={(e) => csvUpload()}
               >
-
-      {loading && (
-        <div className="mr-2 -ml-2">
-          <svg
-            className="animate-spin   h-5 w-5 text-white inline-block "
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx={12}
-              cy={12}
-              r={10}
-              stroke="currentColor"
-              strokeWidth={4}
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-        </div>
-      )}
+                {loading && (
+                  <div className="mr-2 -ml-2">
+                    <svg
+                      className="animate-spin   h-5 w-5 text-white inline-block "
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx={12}
+                        cy={12}
+                        r={10}
+                        stroke="currentColor"
+                        strokeWidth={4}
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                  </div>
+                )}
                 アップロード
               </button>
             </div>
@@ -134,6 +136,8 @@ function Select({ setDept }) {
         <option>YCゆりのき高津</option>
         <option>ミルク八千代</option>
         <option>ミルク船橋</option>
+        <option>YC東金中央</option>
+        <option>YC東金東部</option>
       </select>
     </div>
   )
