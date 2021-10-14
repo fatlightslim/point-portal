@@ -7,6 +7,12 @@ import axios from "axios"
 import CSVReader from "react-csv-reader"
 import Link from "next/link"
 
+const clientId = {
+  "C8D9D207436A": "YCゆりのき高津",
+  "1860248ADB3A": "YC東金東部",
+  "E0D55E58DA97": "YC東金中央",
+}
+
 export default function Admin() {
   const [dept, setDept] = useState("-")
   const [open, setOpen] = useState(false)
@@ -30,7 +36,7 @@ export default function Admin() {
     const result = data.map((v) => {
       return v["クライアントID"]
         ? {
-            dept: "YCゆりのき高津",
+            dept: clientId[v["クライアントID"]],
             code: v["購読者番号"],
             name: v["氏名"],
             add1: v["都道府県・市区名"] + v["住所(町名)"] + v["住所(丁番号)"],

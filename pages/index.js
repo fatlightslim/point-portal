@@ -5,14 +5,14 @@ import Footer from "../components/Footer"
 const togane = [
   {
     name: "読売センター 東金中央",
-    href: "/form?type=yc",
+    href: "/form?type=chuo",
     img: "/yc_logo.jpg",
     description: "よみ得ポイント",
     icon: DatabaseIcon,
   },
   {
     name: "読売センター 東金東部",
-    href: "/form?type=yc",
+    href: "/form?type=tobu",
     img: "/yc_logo.jpg",
     description: "よみ得ポイント",
     icon: DatabaseIcon,
@@ -21,7 +21,7 @@ const togane = [
 const supportLinks = [
   {
     name: "読売センター ゆりのき高津",
-    href: "/form?type=yc",
+    href: "/form?type=takatsu",
     img: "/yc_logo.jpg",
     description: "よみ得ポイント",
     icon: DatabaseIcon,

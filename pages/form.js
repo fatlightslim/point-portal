@@ -13,7 +13,7 @@ export default function Form() {
   const router = useRouter()
 
   useEffect(() => {
-    if (router.query.type === "yc") {
+    if (['takatsu', 'chuo', 'tobu'].includes(router.query.type)) {
       setYc(true)
     }
   }, [])
@@ -24,6 +24,7 @@ export default function Form() {
     axios
       .post(`/api/customers/${data.code}`, { ...router.query, name: data.name })
       .then((r) => {
+        console.log(r);
         if (r.data.name === 404) {
           setCustomer(404)
         } else {
@@ -84,7 +85,7 @@ function Home({ onSubmit, customer, loading, yc }) {
             src={yc ? "/yc_logo.jpg" : "/morinaga.png"}
             alt=""
           />
-          {yc ? "YCゆりのき高津" : "森永ミルクセンター"}
+          {yc ? "" : "森永ミルクセンター"}
         </p>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {yc ? "よみ得ポイント" : "ミルモポイント"}確認
