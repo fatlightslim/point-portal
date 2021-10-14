@@ -27,6 +27,8 @@ export default async function handler(req, res) {
           r.name.substring(0, r.name.search(/\s/))
         ) {
           res.json(r)
+        } else if (r.name.search(/\s/) === -1 && req.body.name === r.name) {
+          res.json(r)
         } else {
           res.json({ name: 404 })
         }
