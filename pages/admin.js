@@ -11,6 +11,7 @@ const clientId = {
   "C8D9D207436A": "YCゆりのき高津",
   "1860248ADB3A": "YC東金東部",
   "E0D55E58DA97": "YC東金中央",
+  "84A93E6D3AB1": "YCうすいNT",
 }
 
 export default function Admin() {
@@ -138,6 +139,8 @@ function Select({ setDept }) {
         <option>ミルク船橋</option>
         <option>YC東金中央</option>
         <option>YC東金東部</option>
+        <option>YCうすいNT</option>
+
       </select>
     </div>
   )

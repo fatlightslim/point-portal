@@ -14,7 +14,10 @@ export default async function handler(req, res) {
       dept = "YC東金中央"
     } else if (req.body.type === "tobu") {
       dept = "YC東金東部"
+    } else if (req.body.type === "usui") {
+      dept = "YCうすいNT"
     }
+    
 
     db.collection("customers").findOne(
       { code: req.query.code, dept },
