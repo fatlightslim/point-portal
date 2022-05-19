@@ -38,7 +38,8 @@ export default function PointPage2({ customer, yc }) {
             <div className=" py-8 text-center">
               <img
                 className="mx-auto"
-                src={yc ? "yomitoku.jpg" : "milk.jpg"}
+                // src={yc ? "yomitoku.jpg" : "milk.jpg"}
+                src={yc === "usui" ? "usuint.jpg" : yc === true ? "yomitoku.jpg" : "milk.jpg"}
                 alt=""
               />
             </div>

@@ -17,6 +17,13 @@ const togane = [
     description: "よみ得ポイント",
     icon: DatabaseIcon,
   },
+  {
+    name: "読売センター うすいNT",
+    href: "/form?type=usui",
+    img: "/yc_logo.jpg",
+    description: "よみ得ポイント",
+    icon: DatabaseIcon,
+  },
 ]
 const supportLinks = [
   {
@@ -102,7 +109,7 @@ export default function Index() {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-2 lg:gap-y-0 lg:gap-x-8 mt-16">
+        <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8 mt-16">
           {togane.map((link) => (
             <div
               key={link.name}

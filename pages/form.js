@@ -16,6 +16,7 @@ export default function Form() {
     if (['takatsu', 'chuo', 'tobu'].includes(router.query.type)) {
       setYc(true)
     }
+    else if (router.query.type === 'usui') { setYc('usui') }
   }, [])
 
   const onSubmit = (data) => {
@@ -104,7 +105,7 @@ function Home({ onSubmit, customer, loading, yc }) {
                 htmlFor="code"
                 className="block text-sm font-medium text-gray-700"
               >
-                {yc ? "購読者番号" : "お客様コード"}
+                {yc ? "購読者番号" : "お客様コード(例000111→111だけ入力する)"}
               </label>
               <div className="mt-1">
                 <input
