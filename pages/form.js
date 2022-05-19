@@ -13,9 +13,10 @@ export default function Form() {
   const router = useRouter()
 
   useEffect(() => {
-    if (['takatsu', 'chuo', 'tobu', 'usui'].includes(router.query.type)) {
+    if (['takatsu', 'chuo', 'tobu'].includes(router.query.type)) {
       setYc(true)
     }
+    else if (router.query.type === 'usui') { setYc('usui') }
   }, [])
 
   const onSubmit = (data) => {
