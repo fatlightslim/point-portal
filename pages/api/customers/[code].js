@@ -16,6 +16,8 @@ export default async function handler(req, res) {
       dept = "YC東金東部"
     } else if (req.body.type === "usui") {
       dept = "YCうすいNT"
+    } else if (req.body.type === "yachiyo-midorigaoka") {
+      dept = "YC緑が丘"
     }
     
 
