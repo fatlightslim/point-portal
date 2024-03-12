@@ -8,7 +8,7 @@ import CSVReader from "react-csv-reader"
 import Link from "next/link"
 
 const clientId = {
-  "C8D9D207436A": "YCゆりのき高津",
+  "B00CD16EC5CE": "YCゆりのき高津",
   "1860248ADB3A": "YC東金東部",
   "E0D55E58DA97": "YC東金中央",
   "84A93E6D3AB1": "YCうすいNT",
